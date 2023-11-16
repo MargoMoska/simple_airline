@@ -1,0 +1,49 @@
+class Flight:
+    def __init__(self, flight_number, origin, destination, departure_time, capacity):
+        self.flight_number = flight_number
+        self.origin = origin
+        self.destination = destination
+        self.departure_time = departure_time
+        self.capacity = capacity
+        self.passengers = []
+
+    def add_passenger(self, passenger):
+        if len(self.passengers) < self.capacity:
+            self.passengers.append(passenger)
+            print(f"Passenger {passenger.name} booked on flight {self.flight_number}.")
+        else:
+            print("Sorry, the flight is already full.")
+
+    def display_info(self):
+        print(f"Flight Number: {self.flight_number}")
+        print(f"From: {self.origin} To: {self.destination}")
+        print(f"Departure Time: {self.departure_time}")
+        print(f"Current Passengers: {len(self.passengers)} / {self.capacity}")
+
+class ReservationSystem:
+    def __init__(self):
+        self.flights = {}
+
+    def add_flight(self, flight):
+        self.flights[flight.flight_number] = flight
+        print(f"Flight {flight.flight_number} added to the system.")
+
+    def book_flight(self, flight_number, passenger):
+        flight = self.flights.get(flight_number)
+        if flight:
+            flight.add_passenger(passenger)
+        else:
+            print("Flight not found in the system.")
+
+    def view_flight_info(self, flight_number):
+        flight = self.flights.get(flight_number)
+        if flight:
+            flight.display_info()
+        else:
+            print("Flight not found in the system.")
+
+    def view_all_flights(self):
+        if not self.flights:
+            print("No flights in the system.")
+        else:
+            print("=== Flight List ===")
